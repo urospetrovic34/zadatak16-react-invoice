@@ -35,6 +35,7 @@ const Main = ({ invoices, setInvoices }) => {
     const [rotatedArrow,setRotatedArrow] = useState("select-arrow")
     const [visibleDeleteModalWrapper,setVisibleDeleteModalWrapper] = useState("delete-modal-wrapper-moved")
     const [invoiceToDelete,setInvoiceToDelete] = useState("")
+    const [submitClick,setSubmitClick] = useState(false)
     //const [markedInvoice,setMarkedInvoice] = useState("")
     let theme = localStorage.getItem("theme")
     let currDate = new Date()
@@ -161,7 +162,10 @@ const Main = ({ invoices, setInvoices }) => {
     }
 
     const handleEditModalSaveChanges = (e) => {
+        setSubmitClick(true)
         let notEmptyValObject = Object.values(copySingleInvoice).every(el => el !== '')
+        let notEmptySenders = Object.values(copySingleInvoice.senderAddress).every(el => el !== '')
+        let notEmptyClients = Object.values(copySingleInvoice.clientAddress).every(el => el !== '')
         let notEmptyItems = copySingleInvoice.items.map((item) => (
             Object.values(item).some(el => el === 0 || el === "")
         ))
@@ -170,12 +174,23 @@ const Main = ({ invoices, setInvoices }) => {
         copySingleInvoice.items.map((item) => (
             totalTotal += item.total
         ))
-        //let newInvoiceItemsNoId = copySingleInvoice.items.map(({ id, ...rest }) => rest)
-        if (copySingleInvoice.items.length > 0 && notEmptyValObject && notEmptyItemCombined) {
+        let newInvoiceItemsNoId = copySingleInvoice.items.map(({ id, ...rest }) => rest)
+        copySingleInvoice.items = newInvoiceItemsNoId
+        let createdAtDate = new Date(copySingleInvoice.createdAt)
+        let paymentDueDate = new Date(createdAtDate.getTime() + (parseInt(copySingleInvoice.paymentTerms) * 24 * 60 * 60 * 1000))
+        copySingleInvoice.paymentDue = paymentDueDate.getFullYear() + "-" + paymentDueDate.toLocaleString('default', { month: '2-digit' }) + "-" + paymentDueDate.toLocaleString('default', { day: '2-digit' })
+        copySingleInvoice.total = totalTotal
+        if (copySingleInvoice.items.length > 0 && notEmptyValObject && notEmptyItemCombined && notEmptySenders && notEmptyClients) {
             alert("MOZEMO IZMENITI RACUN")
+            let newArray = [...invoices]
+            newArray[newArray.findIndex(item => item.id === copySingleInvoice.id)] = copySingleInvoice
+            setSingleInvoice(copySingleInvoice)
+            setInvoices(newArray)
+            handleEditModalMove()
         }
         else {
-
+            alert("NE IZMENITI RACUN")
+            console.log(copySingleInvoice)
         }
     }
 
@@ -232,8 +247,8 @@ const Main = ({ invoices, setInvoices }) => {
         let paymentDueDate = new Date(createdAtDate.getTime() + (parseInt(newInvoiceObject.paymentTerms) * 24 * 60 * 60 * 1000))
         let newSavedInvoice = {
             "id": randomId,
-            "createdAt": createdAtDate.getFullYear() + "-" + createdAtDate.toLocaleString('default', { month: '2-digit' }) + "-" + createdAtDate.getDate(),
-            "paymentDue": paymentDueDate.getFullYear() + "-" + paymentDueDate.toLocaleString('default', { month: '2-digit' }) + "-" + paymentDueDate.getDate(),
+            "createdAt": createdAtDate.getFullYear() + "-" + createdAtDate.toLocaleString('default', { month: '2-digit' }) + "-" + createdAtDate.toLocaleString('default', { day: '2-digit' }),
+            "paymentDue": paymentDueDate.getFullYear() + "-" + paymentDueDate.toLocaleString('default', { month: '2-digit' }) + "-" + paymentDueDate.toLocaleString('default', { day: '2-digit' }),
             "description": newInvoiceObject.description,
             "paymentTerms": parseInt(newInvoiceObject.paymentTerms),
             "clientName": newInvoiceObject.clientName,
@@ -255,7 +270,7 @@ const Main = ({ invoices, setInvoices }) => {
             "total": totalTotal
         }
         setInvoices([...invoices, newSavedInvoice])
-        setTimeout(() => { handleCreateModalMove() }, 5000)
+        handleCreateModalMove()
     }
 
     const handleNewInvoiceCreation = (e) => {
@@ -276,8 +291,8 @@ const Main = ({ invoices, setInvoices }) => {
             let paymentDueDate = new Date(createdAtDate.getTime() + (parseInt(newInvoiceObject.paymentTerms) * 24 * 60 * 60 * 1000))
             let newSavedInvoice = {
                 "id": randomId,
-                "createdAt": createdAtDate.getFullYear() + "-" + createdAtDate.toLocaleString('default', { month: '2-digit' }) + "-" + createdAtDate.getDate(),
-                "paymentDue": paymentDueDate.getFullYear() + "-" + paymentDueDate.toLocaleString('default', { month: '2-digit' }) + "-" + paymentDueDate.getDate(),
+                "createdAt": createdAtDate.getFullYear() + "-" + createdAtDate.toLocaleString('default', { month: '2-digit' }) + "-" + createdAtDate.toLocaleString('default', { day: '2-digit' }),
+                "paymentDue": paymentDueDate.getFullYear() + "-" + paymentDueDate.toLocaleString('default', { month: '2-digit' }) + "-" + paymentDueDate.toLocaleString('default', { day: '2-digit' }),
                 "description": newInvoiceObject.description,
                 "paymentTerms": parseInt(newInvoiceObject.paymentTerms),
                 "clientName": newInvoiceObject.clientName,
@@ -299,7 +314,7 @@ const Main = ({ invoices, setInvoices }) => {
                 "total": totalTotal
             }
             setInvoices([...invoices, newSavedInvoice])
-            setTimeout(() => { handleCreateModalMove() }, 5000)
+            handleCreateModalMove()
         }
         else {
             alert(randomId)
@@ -335,11 +350,14 @@ const Main = ({ invoices, setInvoices }) => {
         if (editModalMoved === "invoice-modal-edit-moved") {
             setEditModalMoved("invoice-modal-edit")
             setEditModalWrapper("invoice-modal-edit-wrapper")
+            setCopySingleInvoice(singleInvoice)
+            setSubmitClick(false)
         }
         else if (editModalMoved === "invoice-modal-edit") {
             setEditModalMoved("invoice-modal-edit-moved")
             setEditModalWrapper("")
             setCopySingleInvoice(singleInvoice)
+            setSubmitClick(false)
         }
     }
 
@@ -490,7 +508,7 @@ const Main = ({ invoices, setInvoices }) => {
                                         </div>
                                         <div>
                                             <label htmlFor="edit-invoice-client-country">Country</label>
-                                            <input type="text" id="edit-invoice-client-country" name="country" className="edit-invoice-bill-to-client-country" value={copySingleInvoice.clientAddress.country} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
+                                            <input type="text" id="edit-invoice-client-country" name="country" className={ submitClick && !copySingleInvoice.clientAddress.country ? "warning edit-invoice-bill-to-client-country" : "edit-invoice-bill-to-client-country"} value={copySingleInvoice.clientAddress.country} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
                                         </div>
                                     </div>
                                     <div className="edit-invoice-bill-to-fifth-row">
@@ -510,7 +528,7 @@ const Main = ({ invoices, setInvoices }) => {
                                         </div>
                                     </div>
                                     <label htmlFor="description">Project Description</label>
-                                    <input type="text" id="edit-invoice-description" name="description" className="edit-invoice-bill-to-description" value={copySingleInvoice.description} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="edit-invoice-description" name="description" className={ submitClick && !copySingleInvoice.description ? "warning edit-invoice-bill-to-description" : "edit-invoice-bill-to-description"} value={copySingleInvoice.description} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
                                 </div>
                                 <div className="edit-invoice-item-list">
                                     <p className="edit-invoice-item-list-title">Item List</p>
@@ -579,7 +597,7 @@ const Main = ({ invoices, setInvoices }) => {
                                 <div className="new-invoice-bill-to">
                                     <p className="new-invoice-bill-to-header">Bill To</p>
                                     <label htmlFor="clientName">Client’s Name</label>
-                                    <input type="text" id="new-invoice-client-name" name="clientName" className="new-invoice-bill-to-client-name" value={newInvoiceObject.clientName} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="new-invoice-client-name" name="clientName" className="new-invoice-bill-to-client-name" value={newInvoiceObject.clientName} onChange={(e) => handleNewInvoiceObjectDataChange(e)}/>
                                     <label htmlFor="clientEmail">Client’s Email</label>
                                     <input type="email" id="new-invoice-client-email" name="clientEmail" className="new-invoice-bill-to-client-email" value={newInvoiceObject.clientEmail} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                     <label htmlFor="clientAddressStreet">Street Address</label>

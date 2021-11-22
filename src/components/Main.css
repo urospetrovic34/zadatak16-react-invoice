@@ -791,6 +791,10 @@ input[type=number]::-webkit-outer-spin-button {
     border: 1px solid var(--invoice-modals-input-border);
 }
 
+.warning{
+    border: 1px solid #EC5757 !important;
+}
+
 .invoice-modal-create input:hover,
 .invoice-modal-edit input:hover{
     border: 1px solid #7C5DFA;

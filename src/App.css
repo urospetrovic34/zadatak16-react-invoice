@@ -76,6 +76,8 @@ button{
   --delete-modal-delete-background:#EC5757;
   --delete-modal-delete-colour:white;
   --delete-modal-delete-hover-background:#FF9797;
+  --invoice-modals-item-list-button-hover-background:#DFE3FA;
+  --invoice-modals-item-list-button-hover-colour:#7E88C3;
 }
 
 .theme-dark{
@@ -134,4 +136,6 @@ button{
   --delete-modal-delete-background:#EC5757;
   --delete-modal-delete-colour:white;
   --delete-modal-delete-hover-background:#FF9797;
+  --invoice-modals-item-list-button-hover-background:#252945;
+  --invoice-modals-item-list-button-hover-colour:#DFE3FA;
 }

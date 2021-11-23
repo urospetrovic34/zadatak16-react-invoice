@@ -32,10 +32,10 @@ const Main = ({ invoices, setInvoices }) => {
     const [draftChecked, setDraftChecked] = useState(false)
     const [paidChecked, setPaidChecked] = useState(false)
     const [toggleClass, setToggleClass] = useState("light")
-    const [rotatedArrow,setRotatedArrow] = useState("select-arrow")
-    const [visibleDeleteModalWrapper,setVisibleDeleteModalWrapper] = useState("delete-modal-wrapper-moved")
-    const [invoiceToDelete,setInvoiceToDelete] = useState("")
-    const [submitClick,setSubmitClick] = useState(false)
+    const [rotatedArrow, setRotatedArrow] = useState("select-arrow")
+    const [visibleDeleteModalWrapper, setVisibleDeleteModalWrapper] = useState("delete-modal-wrapper-moved")
+    const [invoiceToDelete, setInvoiceToDelete] = useState("")
+    const [submitClick, setSubmitClick] = useState(false)
     //const [markedInvoice,setMarkedInvoice] = useState("")
     let theme = localStorage.getItem("theme")
     let currDate = new Date()
@@ -99,10 +99,12 @@ const Main = ({ invoices, setInvoices }) => {
         if (createModalMoved === "invoice-modal-create-moved") {
             setCreateModalMoved("invoice-modal-create")
             setCreateModalWrapper("invoice-modal-create-wrapper")
+            setSubmitClick(false)
         }
         else if (createModalMoved === "invoice-modal-create") {
             setCreateModalMoved("invoice-modal-create-moved")
             setCreateModalWrapper("")
+            setSubmitClick(false)
         }
     }
 
@@ -195,11 +197,11 @@ const Main = ({ invoices, setInvoices }) => {
     }
 
     const handleDeleteModal = (id) => {
-        if(visibleDeleteModalWrapper === "delete-modal-wrapper-moved"){
+        if (visibleDeleteModalWrapper === "delete-modal-wrapper-moved") {
             setVisibleDeleteModalWrapper("delete-modal-wrapper")
             setInvoiceToDelete(id)
         }
-        else{
+        else {
             setVisibleDeleteModalWrapper("delete-modal-wrapper-moved")
             setInvoiceToDelete("")
         }
@@ -274,6 +276,7 @@ const Main = ({ invoices, setInvoices }) => {
     }
 
     const handleNewInvoiceCreation = (e) => {
+        setSubmitClick(true)
         let randomId = generateId()
         let notEmptyValObject = Object.values(newInvoiceObject).every(el => el !== '')
         let notEmptyItems = newInvoiceItems.map((item) => (
@@ -322,10 +325,10 @@ const Main = ({ invoices, setInvoices }) => {
     }
 
     const handleArrowDown = (e) => {
-        if(rotatedArrow==="select-arrow"){
+        if (rotatedArrow === "select-arrow") {
             setRotatedArrow("select-arrow-rotated")
         }
-        else{
+        else {
             setRotatedArrow("select-arrow")
         }
     }
@@ -364,7 +367,7 @@ const Main = ({ invoices, setInvoices }) => {
     const handleMarkPaid = (id) => {
         let newArray = [...invoices]
         newArray[newArray.findIndex(item => item.id === id)].status = "paid"
-        setSingleInvoice(singleInvoice => ({...singleInvoice, status:"paid"}))
+        setSingleInvoice(singleInvoice => ({ ...singleInvoice, status: "paid" }))
         setInvoices(newArray)
     }
 
@@ -416,10 +419,10 @@ const Main = ({ invoices, setInvoices }) => {
                     </div>
                     <div className="delete-modal-buttons">
                         <div className="delete-modal-cancel-button">
-                            <button onClick={()=>handleDeleteModal()}>Cancel</button>
+                            <button onClick={() => handleDeleteModal()}>Cancel</button>
                         </div>
                         <div className="delete-modal-delete-button">
-                            <button onClick={()=>handleDeleteInvoiceItem(invoiceToDelete)}>Delete</button>
+                            <button onClick={() => handleDeleteInvoiceItem(invoiceToDelete)}>Delete</button>
                         </div>
                     </div>
                 </div>
@@ -473,42 +476,42 @@ const Main = ({ invoices, setInvoices }) => {
                                 <div className="edit-invoice-bill-from">
                                     <p className="edit-invoice-bill-from-header">Bill From</p>
                                     <label htmlFor="edit-invoice-street-address">Street Address</label>
-                                    <input type="text" id="edit-invoice-street-address" name="street" className="edit-invoice-bill-from-street-address" value={copySingleInvoice.senderAddress.street} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
+                                    <input type="text" id="edit-invoice-street-address" name="street" className={submitClick && !copySingleInvoice.senderAddress.street ? "warning edit-invoice-bill-from-street-address" : "edit-invoice-bill-from-street-address"} value={copySingleInvoice.senderAddress.street} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
                                     <div className="edit-invoice-bill-from-second-row">
                                         <div>
                                             <label htmlFor="edit-invoice-city">City</label>
-                                            <input type="text" id="edit-invoice-city" name="city" className="edit-invoice-bill-from-city" value={copySingleInvoice.senderAddress.city} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
+                                            <input type="text" id="edit-invoice-city" name="city" className={submitClick && !copySingleInvoice.senderAddress.city ? "warning edit-invoice-bill-from-city" : "edit-invoice-bill-from-city"} value={copySingleInvoice.senderAddress.city} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="edit-invoice-post-code">Post Code</label>
-                                            <input type="text" id="edit-invoice-post-code" name="postCode" className="edit-invoice-bill-from-post-code" value={copySingleInvoice.senderAddress.postCode} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
+                                            <input type="text" id="edit-invoice-post-code" name="postCode" className={submitClick && !copySingleInvoice.senderAddress.postCode ? "warning edit-invoice-bill-from-post-code" : "edit-invoice-bill-from-post-code"} value={copySingleInvoice.senderAddress.postCode} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="edit-invoice-country">Country</label>
-                                            <input type="text" id="edit-invoice-country" name="country" className="edit-invoice-bill-from-country" value={copySingleInvoice.senderAddress.country} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
+                                            <input type="text" id="edit-invoice-country" name="country" className={submitClick && !copySingleInvoice.senderAddress.country ? "warning edit-invoice-bill-from-country" : "edit-invoice-bill-from-country"} value={copySingleInvoice.senderAddress.country} onChange={(e) => handleEditInvoiceObjectNestedDataSenderChange(e)} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="edit-invoice-bill-to">
                                     <p className="edit-invoice-bill-to-header">Bill To</p>
                                     <label htmlFor="edit-invoice-client-name">Client’s Name</label>
-                                    <input type="text" id="edit-invoice-client-name" name="clientName" className="edit-invoice-bill-to-client-name" value={copySingleInvoice.clientName} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="edit-invoice-client-name" name="clientName" className={submitClick && !copySingleInvoice.clientName ? "warning edit-invoice-bill-to-client-name" : "edit-invoice-bill-to-client-name"} value={copySingleInvoice.clientName} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
                                     <label htmlFor="edit-invoice-client-email">Client’s Email</label>
-                                    <input type="email" id="edit-invoice-client-email" name="clientEmail" className="edit-invoice-bill-to-client-email" value={copySingleInvoice.clientEmail} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
+                                    <input type="email" id="edit-invoice-client-email" name="clientEmail" className={submitClick && !copySingleInvoice.clientEmail ? "warning edit-invoice-bill-to-client-email" : "edit-invoice-bill-to-client-email"} value={copySingleInvoice.clientEmail} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
                                     <label htmlFor="edit-invoice-client-street-address">Street Address</label>
-                                    <input type="text" id="edit-invoice-client-street-address" name="street" className="edit-invoice-bill-to-client-street-address" value={copySingleInvoice.clientAddress.street} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
+                                    <input type="text" id="edit-invoice-client-street-address" name="street" className={submitClick && !copySingleInvoice.clientAddress.street ? "warning edit-invoice-bill-to-client-street-address" : "edit-invoice-bill-to-client-street-address"} value={copySingleInvoice.clientAddress.street} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
                                     <div className="edit-invoice-bill-to-fourth-row">
                                         <div>
                                             <label htmlFor="edit-invoice-client-city">City</label>
-                                            <input type="text" id="edit-invoice-client-city" name="city" className="edit-invoice-bill-to-client-city" value={copySingleInvoice.clientAddress.city} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
+                                            <input type="text" id="edit-invoice-client-city" name="city" className={submitClick && !copySingleInvoice.clientAddress.city ? "warning edit-invoice-bill-to-client-city" : "edit-invoice-bill-to-client-city"} value={copySingleInvoice.clientAddress.city} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="edit-invoice-client-post-code">Post Code</label>
-                                            <input type="text" id="edit-invoice-client-post-code" name="postCode" className="edit-invoice-bill-to-client-post-code" value={copySingleInvoice.clientAddress.postCode} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
+                                            <input type="text" id="edit-invoice-client-post-code" name="postCode" className={submitClick && !copySingleInvoice.clientAddress.postCode ? "warning edit-invoice-bill-to-client-post-code" : "edit-invoice-bill-to-client-post-code"} value={copySingleInvoice.clientAddress.postCode} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="edit-invoice-client-country">Country</label>
-                                            <input type="text" id="edit-invoice-client-country" name="country" className={ submitClick && !copySingleInvoice.clientAddress.country ? "warning edit-invoice-bill-to-client-country" : "edit-invoice-bill-to-client-country"} value={copySingleInvoice.clientAddress.country} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
+                                            <input type="text" id="edit-invoice-client-country" name="country" className={submitClick && !copySingleInvoice.clientAddress.country ? "warning edit-invoice-bill-to-client-country" : "edit-invoice-bill-to-client-country"} value={copySingleInvoice.clientAddress.country} onChange={(e) => handleEditInvoiceObjectNestedDataClientChange(e)} />
                                         </div>
                                     </div>
                                     <div className="edit-invoice-bill-to-fifth-row">
@@ -524,11 +527,11 @@ const Main = ({ invoices, setInvoices }) => {
                                                 <option value="14">Net 14 days</option>
                                                 <option value="30">Net 30 days</option>
                                             </select>
-                                            <img src={arrowDownLogo} alt="select-arrow" className={rotatedArrow}/>
+                                            <img src={arrowDownLogo} alt="select-arrow" className={rotatedArrow} />
                                         </div>
                                     </div>
                                     <label htmlFor="description">Project Description</label>
-                                    <input type="text" id="edit-invoice-description" name="description" className={ submitClick && !copySingleInvoice.description ? "warning edit-invoice-bill-to-description" : "edit-invoice-bill-to-description"} value={copySingleInvoice.description} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="edit-invoice-description" name="description" className={submitClick && !copySingleInvoice.description ? "warning edit-invoice-bill-to-description" : "edit-invoice-bill-to-description"} value={copySingleInvoice.description} onChange={(e) => handleEditInvoiceObjectDataChange(e)} />
                                 </div>
                                 <div className="edit-invoice-item-list">
                                     <p className="edit-invoice-item-list-title">Item List</p>
@@ -542,9 +545,9 @@ const Main = ({ invoices, setInvoices }) => {
                                         copySingleInvoice.items.length > 0 ? (
                                             copySingleInvoice.items.map(({ id, name, quantity, price, total }) => (
                                                 <div className="edit-invoice-item-list-item-row" key={id}>
-                                                    <input type="text" id={id} name={id + name} className="edit-invoice-item-list-item-row-name" value={name} onChange={(e) => handleEditInvoiceNewItemNameUpdate(e, id)} />
-                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name={id + name} className="edit-invoice-item-list-item-row-quantity" max={500} value={quantity} onChange={(e) => handleEditInvoiceNewItemQuantityUpdate(e, id)} />
-                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name={id + name} className="edit-invoice-item-list-item-row-price" value={price} onChange={(e) => handleEditInvoiceNewItemPriceUpdate(e, id)} />
+                                                    <input type="text" id={id} name={id + name} className={submitClick && !name ? "warning edit-invoice-item-list-item-row-name" : "edit-invoice-item-list-item-row-name"} value={name} onChange={(e) => handleEditInvoiceNewItemNameUpdate(e, id)} />
+                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name={id + name} className={submitClick && !quantity ? "warning edit-invoice-item-list-item-row-quantity" : "edit-invoice-item-list-item-row-quantity"} max={500} value={quantity} onChange={(e) => handleEditInvoiceNewItemQuantityUpdate(e, id)} />
+                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name={id + name} className={submitClick && !price ? "warning edit-invoice-item-list-item-row-price" : "edit-invoice-item-list-item-row-price"} value={price} onChange={(e) => handleEditInvoiceNewItemPriceUpdate(e, id)} />
                                                     <p className="edit-invoice-item-list-item-row-total">{total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                                                     <img src={deleteLogo} alt="delete-item" className="edit-invoice-item-list-item-row-delete" onClick={() => handleEditInvoiceNewItemDelete(id)} />
                                                 </div>
@@ -578,42 +581,42 @@ const Main = ({ invoices, setInvoices }) => {
                                 <div className="new-invoice-bill-from">
                                     <p className="new-invoice-bill-from-header">Bill From</p>
                                     <label htmlFor="senderAddressStreet">Street Address</label>
-                                    <input type="text" id="new-invoice-street-address" name="senderAddressStreet" className="new-invoice-bill-from-street-address" value={newInvoiceObject.senderAddressStreet} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="new-invoice-street-address" name="senderAddressStreet" className={submitClick && !newInvoiceObject.senderAddressStreet ? "warning new-invoice-bill-from-street-address" : "new-invoice-bill-from-street-address"} value={newInvoiceObject.senderAddressStreet} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                     <div className="new-invoice-bill-from-second-row">
                                         <div>
                                             <label htmlFor="senderAddressCity">City</label>
-                                            <input type="text" id="new-invoice-city" name="senderAddressCity" className="new-invoice-bill-from-city" value={newInvoiceObject.senderAddressCity} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                            <input type="text" id="new-invoice-city" name="senderAddressCity" className={submitClick && !newInvoiceObject.senderAddressCity ? "warning new-invoice-bill-from-city" : "new-invoice-bill-from-city"} value={newInvoiceObject.senderAddressCity} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="senderAddressPostCode">Post Code</label>
-                                            <input type="text" id="new-invoice-post-code" name="senderAddressPostCode" className="new-invoice-bill-from-post-code" value={newInvoiceObject.senderAddressPostCode} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                            <input type="text" id="new-invoice-post-code" name="senderAddressPostCode" className={submitClick && !newInvoiceObject.senderAddressPostCode ? "warning new-invoice-bill-from-post-code" : "new-invoice-bill-from-post-code"} value={newInvoiceObject.senderAddressPostCode} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="senderAddressCountry">Country</label>
-                                            <input type="text" id="new-invoice-country" name="senderAddressCountry" className="new-invoice-bill-from-country" value={newInvoiceObject.senderAddressCountry} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                            <input type="text" id="new-invoice-country" name="senderAddressCountry" className={submitClick && !newInvoiceObject.senderAddressCountry ? "warning new-invoice-bill-from-country" : "new-invoice-bill-from-country"} value={newInvoiceObject.senderAddressCountry} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="new-invoice-bill-to">
                                     <p className="new-invoice-bill-to-header">Bill To</p>
                                     <label htmlFor="clientName">Client’s Name</label>
-                                    <input type="text" id="new-invoice-client-name" name="clientName" className="new-invoice-bill-to-client-name" value={newInvoiceObject.clientName} onChange={(e) => handleNewInvoiceObjectDataChange(e)}/>
+                                    <input type="text" id="new-invoice-client-name" name="clientName" className={submitClick && !newInvoiceObject.clientName ? "warning new-invoice-bill-to-client-name" : "new-invoice-bill-to-client-name"} value={newInvoiceObject.clientName} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                     <label htmlFor="clientEmail">Client’s Email</label>
-                                    <input type="email" id="new-invoice-client-email" name="clientEmail" className="new-invoice-bill-to-client-email" value={newInvoiceObject.clientEmail} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                    <input type="email" id="new-invoice-client-email" name="clientEmail" className={submitClick && !newInvoiceObject.clientEmail ? "warning new-invoice-bill-to-client-email" : "new-invoice-bill-to-client-email"} value={newInvoiceObject.clientEmail} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                     <label htmlFor="clientAddressStreet">Street Address</label>
-                                    <input type="text" id="new-invoice-client-street-address" name="clientAddressStreet" className="new-invoice-bill-to-client-street-address" value={newInvoiceObject.clientAddressStreet} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="new-invoice-client-street-address" name="clientAddressStreet" className={submitClick && !newInvoiceObject.clientAddressStreet ? "warning new-invoice-bill-to-client-street-address" : "new-invoice-bill-to-client-street-address"} value={newInvoiceObject.clientAddressStreet} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                     <div className="new-invoice-bill-to-fourth-row">
                                         <div>
                                             <label htmlFor="clientAddressCity">City</label>
-                                            <input type="text" id="new-invoice-client-city" name="clientAddressCity" className="new-invoice-bill-to-client-city" value={newInvoiceObject.clientAddressCity} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                            <input type="text" id="new-invoice-client-city" name="clientAddressCity" className={submitClick && !newInvoiceObject.clientAddressCity ? "warning new-invoice-bill-to-client-city" : "new-invoice-bill-to-client-city"} value={newInvoiceObject.clientAddressCity} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="clientAddressPostCode">Post Code</label>
-                                            <input type="text" id="new-invoice-client-post-code" name="clientAddressPostCode" className="new-invoice-bill-to-client-post-code" value={newInvoiceObject.clientAddressPostCode} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                            <input type="text" id="new-invoice-client-post-code" name="clientAddressPostCode" className={submitClick && !newInvoiceObject.clientAddressPostCode ? "warning new-invoice-bill-to-client-post-code" : "new-invoice-bill-to-client-post-code"} value={newInvoiceObject.clientAddressPostCode} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                         </div>
                                         <div>
                                             <label htmlFor="clientAddressCountry">Country</label>
-                                            <input type="text" id="new-invoice-client-country" name="clientAddressCountry" className="new-invoice-bill-to-client-country" value={newInvoiceObject.clientAddressCountry} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                            <input type="text" id="new-invoice-client-country" name="clientAddressCountry" className={submitClick && !newInvoiceObject.clientAddressCountry ? "warning new-invoice-bill-to-client-country" : "new-invoice-bill-to-client-country"} value={newInvoiceObject.clientAddressCountry} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                         </div>
                                     </div>
                                     <div className="new-invoice-bill-to-fifth-row">
@@ -629,11 +632,11 @@ const Main = ({ invoices, setInvoices }) => {
                                                 <option className="invoice-modal-option" value="14">Net 14 days</option>
                                                 <option className="invoice-modal-option" value="30">Net 30 days</option>
                                             </select>
-                                            <img src={arrowDownLogo} alt="select-arrow" className={rotatedArrow}/>
+                                            <img src={arrowDownLogo} alt="select-arrow" className={rotatedArrow} />
                                         </div>
                                     </div>
                                     <label htmlFor="description">Project Description</label>
-                                    <input type="text" id="new-invoice-description" name="description" className="new-invoice-bill-to-description" value={newInvoiceObject.description} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
+                                    <input type="text" id="new-invoice-description" name="description" className={submitClick && !newInvoiceObject.description ? "warning new-invoice-bill-to-description" : "new-invoice-bill-to-description"} value={newInvoiceObject.description} onChange={(e) => handleNewInvoiceObjectDataChange(e)} />
                                 </div>
                                 <div className="new-invoice-item-list">
                                     <p className="new-invoice-item-list-title">Item List</p>
@@ -647,9 +650,9 @@ const Main = ({ invoices, setInvoices }) => {
                                         newInvoiceItems.length > 0 ? (
                                             newInvoiceItems.map(({ id, name, quantity, price, total }) => (
                                                 <div className="new-invoice-item-list-item-row" key={id}>
-                                                    <input type="text" id={id} name="new-invoice-item-list-item-row-name" className="new-invoice-item-list-item-row-name" value={name} onChange={(e) => handleNewInvoiceNewItemNameUpdate(e, id)} />
-                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name="new-invoice-item-list-item-row-quantity" className="new-invoice-item-list-item-row-quantity" value={quantity} onChange={(e) => handleNewInvoiceNewItemQuantityUpdate(e, id)} />
-                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name="new-invoice-item-list-item-row-price" className="new-invoice-item-list-item-row-price" value={price} onChange={(e) => handleNewInvoiceNewItemPriceUpdate(e, id)} />
+                                                    <input type="text" id={id} name="new-invoice-item-list-item-row-name" className={submitClick && !name ? "warning new-invoice-item-list-item-row-name" : "new-invoice-item-list-item-row-name"} value={name} onChange={(e) => handleNewInvoiceNewItemNameUpdate(e, id)} />
+                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name="new-invoice-item-list-item-row-quantity" className={submitClick && !quantity ? "warning new-invoice-item-list-item-row-quantity" : "new-invoice-item-list-item-row-quantity"} value={quantity} onChange={(e) => handleNewInvoiceNewItemQuantityUpdate(e, id)} />
+                                                    <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name="new-invoice-item-list-item-row-price" className={submitClick && !price ? "warning new-invoice-item-list-item-row-price" : "new-invoice-item-list-item-row-price"} value={price} onChange={(e) => handleNewInvoiceNewItemPriceUpdate(e, id)} />
                                                     <p className="new-invoice-item-list-item-row-total">{total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                                                     <img src={deleteLogo} alt="delete-item" className="new-invoice-item-list-item-row-delete" onClick={() => handleNewInvoiceNewItemDelete(id)} />
                                                 </div>
@@ -719,11 +722,11 @@ const Main = ({ invoices, setInvoices }) => {
                                         <img src={noInvoiceIllustration} alt="no-invoice" />
                                         <p className="no-invoice-header">There is nothing here</p>
                                         <p className="no-invoice-paragraph">  Create an invoice by clicking the
-                                            <span> New Invoice</span> button and get started</p>
+                                            <span> New </span> button and get started</p>
                                     </div>
                                 ) : (
                                     <div className="invoices-container">
-                                 {allInvoicesCopy.map(({ id, paymentDue, clientName, total, status }) => {
+                                        {allInvoicesCopy.map(({ id, paymentDue, clientName, total, status }) => {
                                             let paymentDueDate = new Date(paymentDue)
                                             return (
                                                 <div key={id} className="invoices-card" onClick={() => handleSingleInvoice(id)}>
@@ -740,6 +743,41 @@ const Main = ({ invoices, setInvoices }) => {
                                 )
                             }
                         </div>
+                        <div className="all-invoices-mobile-data">
+                            {
+                                allInvoicesCopy.length === 0 ? (
+                                    <div className="no-invoice-container">
+                                        <img src={noInvoiceIllustration} alt="no-invoice" />
+                                        <p className="no-invoice-header">There is nothing here</p>
+                                        <p className="no-invoice-paragraph">  Create an invoice by clicking the
+                                            <span> New </span> button and get started</p>
+                                    </div>
+                                ) : (
+                                    <div className="invoices-container">
+                                        {allInvoicesCopy.map(({ id, paymentDue, clientName, total, status }) => {
+                                            let paymentDueDate = new Date(paymentDue)
+                                            return (
+                                                <div className="invoices-mobile-card" onClick={() => handleSingleInvoice(id)}>
+                                                    <div className="invoices-mobile-card-first-row">
+                                                        <div className="invoice-id"><span>#</span>{id}</div>
+                                                        <div className="invoice-client">{clientName}</div>
+                                                    </div>
+                                                    <div className="invoices-mobile-card-second-row">
+                                                        <div className="invoices-mobile-card-second-row-first-column">
+                                                            <div className="invoice-due">Due {paymentDueDate.getDate() + " " + paymentDueDate.toLocaleString('default', { month: 'short' }) + " " + paymentDueDate.getFullYear()}</div>
+                                                            <div className="invoice-total">£ {total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                                                        </div>
+                                                        <div className="invoices-mobile-card-second-row-second-column">
+                                                            <div className="invoice-status">{status === "pending" ? (<div className="pending-invoice">● {status}</div>) : status === "paid" ? (<div className="paid-invoice">● {status}</div>) : (<div className="draft-invoice">● {status}</div>)}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className="single-invoice-container">
@@ -747,6 +785,14 @@ const Main = ({ invoices, setInvoices }) => {
                         <div className="single-invoice-go-back" onClick={() => handleMainMenu()}>
                             <img src={arrowLeftLogo} alt="go-back-arrow" />
                             <p className="go-back-text">Go back</p>
+                        </div>
+                        <div className="single-invoice-mobile-buttons">
+                            <div className="single-invoice-status">
+                                <p className="single-invoice-status-text">Status</p>
+                            </div>
+                            <div className="single-invoice-button-options">
+                                <button className="single-invoice-status-button">{singleInvoice.status === "pending" ? (<div className="pending-invoice">● {singleInvoice.status}</div>) : singleInvoice.status === "paid" ? (<div className="paid-invoice">● {singleInvoice.status}</div>) : (<div className="draft-invoice">● {singleInvoice.status}</div>)}</button>
+                            </div>
                         </div>
                         <div className="single-invoice-buttons">
                             <div className="single-invoice-status">
@@ -757,6 +803,61 @@ const Main = ({ invoices, setInvoices }) => {
                                 <button className="single-invoice-edit-button" onClick={() => handleEditModalMove()}>Edit</button>
                                 <button className="single-invoice-delete-button" onClick={() => handleDeleteModal(singleInvoice.id)}>Delete</button>
                                 <button className="single-invoice-mark-button" onClick={() => handleMarkPaid(singleInvoice.id)}>Mark as Paid</button>
+                            </div>
+                        </div>
+                        <div className="single-invoice-mobile-main">
+                            <div className="single-invoice-mobile-main-first-row">
+                                <p className="single-invoice-main-id"><span>#</span>{singleInvoice.id}</p>
+                                <p className="single-invoice-main-description">{singleInvoice.description}</p>
+                            </div>
+                            <div className="single-invoice-mobile-main-second-row">
+                                <p className="single-invoice-sender-street">{singleInvoice.senderAddress.street}</p>
+                                <p className="single-invoice-sender-city">{singleInvoice.senderAddress.city}</p>
+                                <p className="single-invoice-sender-post-code">{singleInvoice.senderAddress.postCode}</p>
+                                <p className="single-invoice-sender-country">{singleInvoice.senderAddress.country}</p>
+                            </div>
+                            <div className="single-invoice-mobile-main-third-row">
+                                <div>
+                                    <div className="single-invoice-mobile-main-third-row-first-column">
+                                        <p className="single-invoice-created-at-desc">Invoice Date</p>
+                                        <p className="single-invoice-created-at">{singleInvoice.createdAt}</p>
+                                    </div>
+                                    <div className="single-invoice-mobile-main-third-row-second-column">
+                                        <p className="single-invoice-payment-due-desc">Payment Due</p>
+                                        <p className="single-invoice-payment-due">{singleInvoice.paymentDue}</p>
+                                    </div>
+                                </div>
+                                <div className="single-invoice-mobile-main-third-row-third-column">
+                                    <p className="single-invoice-client-desc">Bill To</p>
+                                    <p className="single-invoice-client-name">{singleInvoice.clientName}</p>
+                                    <p className="single-invoice-client-street">{singleInvoice.clientAddress.street}</p>
+                                    <p className="single-invoice-client-city">{singleInvoice.clientAddress.city}</p>
+                                    <p className="single-invoice-client-post-code">{singleInvoice.clientAddress.postCode}</p>
+                                    <p className="single-invoice-client-country">{singleInvoice.clientAddress.country}</p>
+                                </div>
+                            </div>
+                            <div className="single-invoice-mobile-main-fourth-row">
+                                    <p className="single-invoice-client-mail-desc">Sent to</p>
+                                    <p className="single-invoice-client-mail">{singleInvoice.clientEmail}</p>
+                            </div>
+                            <div className="single-invoice-mobile-main-items-container">
+                                {
+                                    singleInvoice.items.map((singleItem) => (
+                                        <div className="single-invoice-mobile-main-items-item-row">
+                                            <div>
+                                                <p className="single-invoice-main-items-item-name">{singleItem.name}</p>
+                                                <p className="calculation">{singleItem.quantity} x £ {singleItem.price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                                            </div>
+                                            <div>
+                                                <p className="single-invoice-main-items-item-total">£ {singleItem.total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                                <div className="single-invoice-main-items-total-amount-row">
+                                    <div className="single-invoice-main-items-total-amount-desc">Grand Total</div>
+                                    <div className="single-invoice-main-items-total-amount">£ {singleInvoice.total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                                </div>
                             </div>
                         </div>
                         <div className="single-invoice-main">

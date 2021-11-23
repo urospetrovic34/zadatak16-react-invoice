@@ -139,3 +139,12 @@ button{
   --invoice-modals-item-list-button-hover-background:#252945;
   --invoice-modals-item-list-button-hover-colour:#DFE3FA;
 }
+
+*::-webkit-scrollbar{
+  height: 14px;
+  width: 0px;
+  background: white;
+  outline: none;  
+  border: none;
+  cursor: pointer;
+}

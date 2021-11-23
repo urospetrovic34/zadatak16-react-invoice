@@ -73,18 +73,20 @@
 
 .all-invoices-container{
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y:auto;
     display: flex;
     justify-content:center;
-    margin-top:72px;
+    padding-top:72px;
 }
 
 .single-invoice-container{
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y:auto;
     display: flex;
     justify-content:center;
-    margin-top:64px;
+    padding-top:64px;
 }
 
 .all-invoices-limiter{
@@ -1488,6 +1490,11 @@ input[type=number]::-webkit-outer-spin-button {
     border: none;
     cursor: pointer;
 }
+.all-invoices-container{
+    padding-top:34px;
+    overflow-y:hidden;
+    height: calc(100vh - 72px);
+}
 }
 
 @media screen and (max-width:768px) {
@@ -1576,9 +1583,6 @@ input[type=number]::-webkit-outer-spin-button {
         display: flex;
         align-items: center;
         gap:18px;
-    }
-    .all-invoices-container{
-        margin-top:34px;
     }
     .all-invoices-mobile-data::-webkit-scrollbar{
 	    height: 14px;

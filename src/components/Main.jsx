@@ -410,7 +410,7 @@ const Main = ({ invoices, setInvoices }) => {
 
     useEffect(() => {
         setMessageInvoiceCount(invoices.length + " invoices")
-    },[])
+    },[invoices.length])
 
     return (
         <div className="wrapper">

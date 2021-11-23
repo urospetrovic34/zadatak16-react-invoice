@@ -36,6 +36,7 @@ const Main = ({ invoices, setInvoices }) => {
     const [visibleDeleteModalWrapper, setVisibleDeleteModalWrapper] = useState("delete-modal-wrapper-moved")
     const [invoiceToDelete, setInvoiceToDelete] = useState("")
     const [submitClick, setSubmitClick] = useState(false)
+    const [messageInvoiceCount,setMessageInvoiceCount] = useState()
     //const [markedInvoice,setMarkedInvoice] = useState("")
     let theme = localStorage.getItem("theme")
     let currDate = new Date()
@@ -407,6 +408,10 @@ const Main = ({ invoices, setInvoices }) => {
         }
     }, [paidChecked, draftChecked, pendingChecked, invoices])
 
+    useEffect(() => {
+        setMessageInvoiceCount(invoices.length + " invoices")
+    },[])
+
     return (
         <div className="wrapper">
             <div className={`${visibleDeleteModalWrapper}`}>
@@ -471,6 +476,10 @@ const Main = ({ invoices, setInvoices }) => {
                 <div className={`${editModalWrapper}`}>
                     <form onSubmit={(e) => handleFormPreventDefault(e)}>
                         <div className={`${editModalMoved}`}>
+                        <div className="single-invoice-go-back" onClick={() => handleMainMenu()}>
+                            <img src={arrowLeftLogo} alt="go-back-arrow" />
+                            <p className="go-back-text">Go back</p>
+                        </div>
                             <p className="edit-invoice-header">Edit <span>#</span>{copySingleInvoice.id}</p>
                             <div className="edit-invoice-main">
                                 <div className="edit-invoice-bill-from">
@@ -576,6 +585,10 @@ const Main = ({ invoices, setInvoices }) => {
                 <div className={`${createModalWrapper}`}>
                     <form onSubmit={(e) => handleFormPreventDefault(e)}>
                         <div className={`${createModalMoved}`}>
+                        <div className="single-invoice-go-back" onClick={() => handleMainMenu()}>
+                            <img src={arrowLeftLogo} alt="go-back-arrow" />
+                            <p className="go-back-text">Go back</p>
+                        </div>
                             <p className="new-invoice-header">New Invoice</p>
                             <div className="new-invoice-main">
                                 <div className="new-invoice-bill-from">
@@ -684,7 +697,7 @@ const Main = ({ invoices, setInvoices }) => {
                         <div className="all-invoices-header">
                             <div className="all-invoices-header-first-half">
                                 <p className="all-invoices-header-heading">Invoices</p>
-                                <p className="all-invoices-header-total">There are total {allInvoicesCopy.length} invoices</p>
+                                <p className="all-invoices-header-total">{messageInvoiceCount}</p>
                             </div>
                             <div className="all-invoices-header-second-half">
                                 <div className="all-invoices-header-filter-container">

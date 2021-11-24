@@ -1765,4 +1765,24 @@ input[type=number]::-webkit-outer-spin-button {
 .single-invoice-go-back-modal{
     display:flex;
 }
+.select-arrow{
+    display:none;
+    position: absolute;
+    top: 50px;
+    left: 210px;
+    cursor: pointer;
+}
+
+.select-arrow-rotated{
+    display:none;
+    position: absolute;
+    top: 50px;
+    left: 210px;
+    cursor: pointer;
+    transform:rotate(180deg);
+}
+.new-invoice-item-list-item-row,
+.edit-invoice-item-list-item-row{
+    flex-wrap: wrap;
+}
 }

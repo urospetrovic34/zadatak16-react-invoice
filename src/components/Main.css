@@ -92,7 +92,9 @@
 	/* Vanja */
 	height: calc(100vh - 300px);
 }
-
+.single-invoice-footer {
+	display: none;
+}
 .single-invoice-limiter {
 	width: 730px;
 }
@@ -1605,6 +1607,8 @@ input[type="number"]::-webkit-outer-spin-button {
 	}
 	.single-invoice-limiter {
 		width: 87%;
+		/* Vanja */
+		margin-left: 47px;
 	}
 	.single-invoice-buttons {
 		display: none;
@@ -1620,6 +1624,19 @@ input[type="number"]::-webkit-outer-spin-button {
 	}
 	.single-invoice-container {
 		margin-top: 32px;
+		/* Vanja */
+		flex-direction: column;
+		overflow: auto;
+		height: calc(100vh - 98px);
+		min-height: unset;
+	}
+	/* Vanja */
+	.single-invoice-footer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #fff;
+		padding: 24px 20px;
 	}
 	.single-invoice-main-mobile-third-row {
 		display: flex;
@@ -1630,6 +1647,8 @@ input[type="number"]::-webkit-outer-spin-button {
 	}
 	.single-invoice-mobile-main {
 		display: block;
+		overflow-y: auto;
+		height: calc(100vh - 259px);
 	}
 	.single-invoice-mobile-main-third-row {
 		display: flex;
@@ -1685,6 +1704,9 @@ input[type="number"]::-webkit-outer-spin-button {
 	.new-invoice-mobile {
 		display: block;
 		width: 100%;
+	}
+	.single-invoice-limiter {
+		margin-left: 24px;
 	}
 }
 @media screen and (max-width: 383px) {

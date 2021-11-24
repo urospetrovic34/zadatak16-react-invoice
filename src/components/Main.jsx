@@ -1177,6 +1177,19 @@ const Main = ({ invoices, setInvoices }) => {
 							</div>
 						</div>
 					</div>
+					<div className="single-invoice-footer">
+						<div className="single-invoice-button-options">
+							<button className="single-invoice-edit-button" onClick={() => handleEditModalMove()}>
+								Edit
+							</button>
+							<button className="single-invoice-delete-button" onClick={() => handleDeleteModal(singleInvoice.id)}>
+								Delete
+							</button>
+							<button className="single-invoice-mark-button" onClick={() => handleMarkPaid(singleInvoice.id)}>
+								Mark as Paid
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

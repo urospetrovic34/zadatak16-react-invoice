@@ -794,14 +794,21 @@ const Main = ({ invoices, setInvoices }) => {
 									<p className="new-invoice-item-list-title">Item List</p>
 									<div className="new-invoice-item-list-heading">
 										<div className="new-invoice-item-list-name">Item Name</div>
-										<div className="new-invoice-item-list-quantity">Qty.</div>
-										<div className="new-invoice-item-list-price">Price</div>
-										<div className="new-invoice-item-list-total">Total</div>
+										<div className="new-invoice-item-list-quantity d-sm-none">Qty.</div>
+										<div className="new-invoice-item-list-price d-sm-none">Price</div>
+										<div className="new-invoice-item-list-total d-sm-none">Total</div>
 									</div>
 									{newInvoiceItems.length > 0 ? (
 										newInvoiceItems.map(({ id, name, quantity, price, total }) => (
 											<div className="new-invoice-item-list-item-row" key={id}>
 												<input type="text" id={id} name="new-invoice-item-list-item-row-name" className={submitClick && !name ? "warning new-invoice-item-list-item-row-name" : "new-invoice-item-list-item-row-name"} value={name} onChange={(e) => handleNewInvoiceNewItemNameUpdate(e, id)} />
+												<div className="new-invoice-mobile">
+													<div className="new-invoice-item-list-heading">
+														<div className="new-invoice-item-list-quantity d-sm-block">Qty.</div>
+														<div className="new-invoice-item-list-price d-sm-block">Price</div>
+														<div className="new-invoice-item-list-total d-sm-block">Total</div>
+													</div>
+												</div>
 												<input
 													type="number"
 													step="0.01"

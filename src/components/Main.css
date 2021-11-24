@@ -1008,6 +1008,11 @@ input[type="number"]::-webkit-outer-spin-button {
 	color: var(--invoice-modals-header);
 }
 
+/* Vanja */
+.new-invoice-mobile {
+	display: none;
+}
+
 .new-invoice-bill-from-header,
 .new-invoice-bill-to-header,
 .edit-invoice-bill-from-header,
@@ -1644,7 +1649,8 @@ input[type="number"]::-webkit-outer-spin-button {
 	.new-invoice-bill-from-second-row,
 	.new-invoice-bill-to-fourth-row,
 	.edit-invoice-bill-from-second-row,
-	.edit-invoice-bill-to-fourth-row {
+	.edit-invoice-bill-to-fourth-row,
+	.new-invoice-item-list-item-row {
 		flex-wrap: wrap;
 	}
 	.new-invoice-bill-from-second-row > div,
@@ -1656,7 +1662,28 @@ input[type="number"]::-webkit-outer-spin-button {
 	.new-invoice-bill-from-second-row div:nth-child(3),
 	.new-invoice-bill-to-fourth-row div:nth-child(3),
 	.edit-invoice-bill-from-second-row div:nth-child(3),
-	.edit-invoice-bill-to-fourth-row div:nth-child(3) {
+	.edit-invoice-bill-to-fourth-row div:nth-child(3),
+	.invoice-modal-create input[type="text"] {
+		width: 100%;
+	}
+	.d-sm-none {
+		display: none;
+	}
+	.d-sm-block {
+		display: block;
+	}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox */
+	input[type="number"] {
+		-moz-appearance: textfield;
+	}
+	.new-invoice-mobile {
+		display: block;
 		width: 100%;
 	}
 }

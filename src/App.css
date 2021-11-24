@@ -78,6 +78,7 @@ button{
   --delete-modal-delete-hover-background:#FF9797;
   --invoice-modals-item-list-button-hover-background:#DFE3FA;
   --invoice-modals-item-list-button-hover-colour:#7E88C3;
+  --footer-background:white;
 }
 
 .theme-dark{
@@ -138,6 +139,7 @@ button{
   --delete-modal-delete-hover-background:#FF9797;
   --invoice-modals-item-list-button-hover-background:#252945;
   --invoice-modals-item-list-button-hover-colour:#DFE3FA;
+  --footer-background:#1E2139;
 }
 
 *::-webkit-scrollbar{

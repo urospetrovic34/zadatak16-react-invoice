@@ -663,10 +663,22 @@ const Main = ({ invoices, setInvoices }) => {
                                         newInvoiceItems.length > 0 ? (
                                             newInvoiceItems.map(({ id, name, quantity, price, total }) => (
                                                 <div className="new-invoice-item-list-item-row" key={id}>
-                                                    <input type="text" id={id} name="new-invoice-item-list-item-row-name" className={submitClick && !name ? "warning new-invoice-item-list-item-row-name" : "new-invoice-item-list-item-row-name"} value={name} onChange={(e) => handleNewInvoiceNewItemNameUpdate(e, id)} />
+                                                    <div>
+                                                        <label htmlFor="new-invoice-item-list-item-row-name" className="new-invoice-mobile-item-list-label">Item Name</label>
+                                                        <input type="text" id={id} name="new-invoice-item-list-item-row-name" className={submitClick && !name ? "warning new-invoice-item-list-item-row-name" : "new-invoice-item-list-item-row-name"} value={name} onChange={(e) => handleNewInvoiceNewItemNameUpdate(e, id)} />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="new-invoice-item-list-item-row-quantity" className="new-invoice-mobile-item-list-label">Qty.</label>
                                                     <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name="new-invoice-item-list-item-row-quantity" className={submitClick && !quantity ? "warning new-invoice-item-list-item-row-quantity" : "new-invoice-item-list-item-row-quantity"} value={quantity} onChange={(e) => handleNewInvoiceNewItemQuantityUpdate(e, id)} />
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="new-invoice-item-list-item-row-price" className="new-invoice-mobile-item-list-label">Price</label>
                                                     <input type="number" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" id={id} name="new-invoice-item-list-item-row-price" className={submitClick && !price ? "warning new-invoice-item-list-item-row-price" : "new-invoice-item-list-item-row-price"} value={price} onChange={(e) => handleNewInvoiceNewItemPriceUpdate(e, id)} />
-                                                    <p className="new-invoice-item-list-item-row-total">{total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="new-invoice-item-list-item-row-total" className="new-invoice-mobile-item-list-label">Total</label>
+                                                        <p className="new-invoice-item-list-item-row-total">{total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                                                    </div>
                                                     <img src={deleteLogo} alt="delete-item" className="new-invoice-item-list-item-row-delete" onClick={() => handleNewInvoiceNewItemDelete(id)} />
                                                 </div>
                                             ))
@@ -933,6 +945,19 @@ const Main = ({ invoices, setInvoices }) => {
                                 </div>
                             </div>
                         </div>
+					<div className="single-invoice-footer">
+						<div className="single-invoice-button-options">
+							<button className="single-invoice-edit-button" onClick={() => handleEditModalMove()}>
+								Edit
+							</button>
+							<button className="single-invoice-delete-button" onClick={() => handleDeleteModal(singleInvoice.id)}>
+								Delete
+							</button>
+							<button className="single-invoice-mark-button" onClick={() => handleMarkPaid(singleInvoice.id)}>
+								Mark as Paid
+							</button>
+						</div>
+					</div>
                     </div>
                 </div>
             </div>

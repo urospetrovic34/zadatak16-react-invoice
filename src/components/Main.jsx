@@ -476,7 +476,7 @@ const Main = ({ invoices, setInvoices }) => {
                 <div className={`${editModalWrapper}`}>
                     <form onSubmit={(e) => handleFormPreventDefault(e)}>
                         <div className={`${editModalMoved}`}>
-                        <div className="single-invoice-go-back" onClick={() => handleMainMenu()}>
+                        <div className="single-invoice-go-back-modal" onClick={() => handleMainMenu()}>
                             <img src={arrowLeftLogo} alt="go-back-arrow" />
                             <p className="go-back-text">Go back</p>
                         </div>
@@ -585,7 +585,7 @@ const Main = ({ invoices, setInvoices }) => {
                 <div className={`${createModalWrapper}`}>
                     <form onSubmit={(e) => handleFormPreventDefault(e)}>
                         <div className={`${createModalMoved}`}>
-                        <div className="single-invoice-go-back" onClick={() => handleMainMenu()}>
+                        <div className="single-invoice-go-back-modal" onClick={() => handleMainMenu()}>
                             <img src={arrowLeftLogo} alt="go-back-arrow" />
                             <p className="go-back-text">Go back</p>
                         </div>

@@ -74,7 +74,7 @@
 .all-invoices-container{
     width: 100vw;
     height: 100vh;
-    overflow-y:auto;
+    overflow-y: auto;
     display: flex;
     justify-content:center;
     padding-top:72px;
@@ -191,7 +191,6 @@ input[type="checkbox"] {
 }
 
 .all-invoices-data{
-    height:99%;
     margin-top:65px;
     overflow-y: auto;
 }
@@ -395,6 +394,14 @@ input[type="checkbox"] {
     gap:23px;
     cursor: pointer;
     width:20%;
+}
+
+.single-invoice-go-back-modal{
+    display: none;
+    align-items: center;
+    gap:23px;
+    cursor: pointer;
+    width:100%;
 }
 
 .single-invoice-go-back:hover .go-back-text{
@@ -1753,5 +1760,9 @@ input[type=number]::-webkit-outer-spin-button {
     overflow-y: auto;
     height: calc(100vh - 104px);
     min-height: 0px;
+    padding-top:0px;
+}
+.single-invoice-go-back-modal{
+    display:flex;
 }
 }

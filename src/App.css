@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Spartan', sans-serif;
+}
+
+html,body{
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--body-background);
+}
+
+button{
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.theme-light{
+  --body-background:#F8F8FB;
+  --all-invoices-header-first-half-colour:#0C0E16;
+  --all-invoices-header-filter-colour:#0C0E16;
+  --filter-modal-background:white;
+  --filter-modal-colour:#1E2139;
+  --invoices-card-background:white;
+  --invoices-card-due-client-colour:#7E88C3;
+  --invoices-card-total-colour:#0C0E16;
+  --invoices-card-id-colour:#0C0E16;
+  --invoices-card-id-span-colour:#7E88C3;
+  --invoice-modals-background:white;
+  --invoice-modals-header:#0C0E16;
+  --invoice-modals-label:#7E88C3;
+  --invoice-modals-input-background:white;
+  --invoice-modals-input-colour:#0C0E16;
+  --invoice-modals-input-border:#DFE3FA;
+  --invoice-modals-item-list-title-colour:#777F98;
+  --invoice-modals-item-list-heading-colour:#7E88C3;
+  --invoice-modals-item-list-button-background:#F9FAFE;
+  --invoice-modals-item-list-button-colour:#7E88C3;
+  --single-invoice-buttons-background:white;
+  --single-invoice-buttons-status-colour:#858BB2;
+  --single-invoice-main-background:white;
+  --single-invoice-items-background:#F9FAFE;
+  --single-invoice-items-total-background:#373B53;
+  --draft-button-background:#373B53;
+  --draft-button-colour:#888EB0;
+  --draft-button-hover-background:#0C0E16;
+  --invoice-modals-total-colour:#888EB0;
+  --single-invoice-go-back-colour:#0C0E16;
+  --single-invoice-buttons-edit-button-background:#F9FAFE;
+  --single-invoice-buttons-edit-button-colour:#7E88C3;
+  --single-invoice-buttons-edit-button-hover-background:#DFE3FA;
+  --single-invoice-buttons-edit-button-hover-colour:#7E88C3;
+  --draft-invoice-background:rgba(55, 59, 83,0.06);
+  --draft-invoice-colour:#373B53;
+  --single-invoice-id-colour:#0C0E16;
+  --single-invoice-id-span-colour:#888EB0;
+  --single-invoice-description-colour:#7E88C3;
+  --single-invoice-sender-location-colour:#7E88C3;
+  --single-invoice-client-location-colour:#7E88C3;
+  --single-invoice-date-due-colour:#7E88C3;
+  --single-invoice-date-due-number-colour:#0C0E16;
+  --single-invoice-client-name-colour:#0C0E16;
+  --single-invoice-go-back-hover-colour:#7E88C3;
+  --navbar-background:#373B53;
+  --filter-modal-input-background:#DFE3FA;
+  --delete-modal-background:white;
+  --delete-modal-title-colour:#0C0E16;
+  --delete-modal-paragraph-colour:#888EB0;
+  --delete-modal-cancel-background:#F9FAFE;
+  --delete-modal-cancel-colour:#7E88C3;
+  --delete-modal-delete-background:#EC5757;
+  --delete-modal-delete-colour:white;
+  --delete-modal-delete-hover-background:#FF9797;
+  --invoice-modals-item-list-button-hover-background:#DFE3FA;
+  --invoice-modals-item-list-button-hover-colour:#7E88C3;
+  --footer-background:white;
+}
+
+.theme-dark{
+  --body-background:#141625;
+  --all-invoices-header-first-half-colour:white;
+  --all-invoices-header-filter-colour:white;
+  --filter-modal-background:#252945;
+  --filter-modal-colour:white;
+  --invoices-card-background:#1E2139;
+  --invoices-card-due-client-colour:#DFE3FA;
+  --invoices-card-total-colour:white;
+  --invoices-card-id-colour:white;
+  --invoices-card-id-span-colour:#7E88C3;
+  --invoice-modals-background:#141625;
+  --invoice-modals-header:white;
+  --invoice-modals-label:#DFE3FA;
+  --invoice-modals-input-background:#1E2139;
+  --invoice-modals-input-colour:white;
+  --invoice-modals-input-border:#252945;
+  --invoice-modals-item-list-title-colour:#777F98;
+  --invoice-modals-item-list-heading-colour:#DFE3FA;
+  --invoice-modals-item-list-button-background:#252945;
+  --invoice-modals-item-list-button-colour:#DFE3FA;
+  --single-invoice-buttons-background:#1E2139;
+  --single-invoice-buttons-status-colour:#DFE3FA;
+  --single-invoice-main-background:#1E2139;
+  --single-invoice-items-background:#252945;
+  --single-invoice-items-total-background:#0C0E16;
+  --draft-button-background:#373B53;
+  --draft-button-colour:#DFE3FA;
+  --draft-button-hover-background:#1E2139;
+  --invoice-modals-total-colour:#DFE3FA;
+  --single-invoice-go-back-colour:white;
+  --single-invoice-buttons-edit-button-background:#252945;
+  --single-invoice-buttons-edit-button-colour:#DFE3FA;
+  --single-invoice-buttons-edit-button-hover-background:white;
+  --single-invoice-buttons-edit-button-hover-colour:#7E88C3;
+  --draft-invoice-background:rgba(223, 227, 250,0.06);
+  --draft-invoice-colour:#DFE3FA;
+  --single-invoice-id-colour:white;
+  --single-invoice-id-span-colour:#888EB0;
+  --single-invoice-description-colour:#DFE3FA;
+  --single-invoice-sender-location-colour:#DFE3FA;
+  --single-invoice-client-location-colour:#DFE3FA;
+  --single-invoice-date-due-colour:#DFE3FA;
+  --single-invoice-date-due-number-colour:white;
+  --single-invoice-client-name-colour:white;
+  --single-invoice-go-back-hover-colour:#888EB0;
+  --navbar-background:#1E2139;
+  --filter-modal-input-background:#1E2139;
+  --delete-modal-background:#1E2139;
+  --delete-modal-title-colour:white;
+  --delete-modal-paragraph-colour:#DFE3FA;
+  --delete-modal-cancel-background:#252945;
+  --delete-modal-cancel-colour:#DFE3FA;
+  --delete-modal-delete-background:#EC5757;
+  --delete-modal-delete-colour:white;
+  --delete-modal-delete-hover-background:#FF9797;
+  --invoice-modals-item-list-button-hover-background:#252945;
+  --invoice-modals-item-list-button-hover-colour:#DFE3FA;
+  --footer-background:#1E2139;
+}
+
+*::-webkit-scrollbar{
+  height: 14px;
+  width: 0px;
+  background: white;
+  outline: none;  
+  border: none;
+  cursor: pointer;
+}
